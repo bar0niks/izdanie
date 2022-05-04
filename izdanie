@@ -1,0 +1,169 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IZDANIE
+{
+    abstract class izdanie
+    {
+       public string nameofpublic;    
+          public string surname;
+        public izdanie(string nameofpublic, string surname)
+        {
+            this.nameofpublic = nameofpublic;
+            this.surname = surname;
+        }
+        public virtual void GetInformation()
+        {
+            Console.WriteLine("Название издания -> {0} \nИмя автора -> {1}", nameofpublic, surname);
+        }
+    }
+    class Book : izdanie
+    {
+         int yearofpublic;
+         string nameofedition;
+        public Book(string nameofpublic, string surname, int yearofpublic, string nameofedition) : base(nameofpublic, surname)
+        {
+             this.yearofpublic = yearofpublic;
+            this.nameofedition = nameofedition;
+        }
+        public override void GetInformation()
+        {
+            Console.WriteLine("\t\tИнформация о Книге -> ");
+            base.GetInformation();
+            Console.WriteLine("Название издания -> {0} \nФамилия автора -> {1}\nГод выпуска книги -> {2} \nНазвание книги -> {3}" , nameofpublic, surname, yearofpublic, nameofedition);
+        }
+    }
+    class Article : izdanie
+    {
+        string nameofmagazine;
+         int number;
+         int yearofpublic;
+        public Article(string nameofpublic, string surname, int yearofpublic, string nameofmagazine, int number) : base(nameofpublic, surname)
+        {
+            this.nameofmagazine = nameofmagazine;
+            this.number = number;
+            this.yearofpublic = yearofpublic;
+        }
+        public override void GetInformation()
+        {
+            Console.WriteLine("\t\tИнформация о Cтатье-> ");
+            base.GetInformation();
+            Console.WriteLine("Название издания -> \nФамилия автора -> \nНазвание журнала->  \nНомер журнала -> \nГод публикации ->", nameofpublic, surname, nameofmagazine, number, yearofpublic);
+        }
+    }
+    class InterntEdition : izdanie
+    {
+        string link;
+         string annotation;
+        public InterntEdition(string nameofpublic, string surname, string link, string annotation) : base(nameofpublic, surname)
+        {
+            this.link = link;
+            this.annotation = annotation;
+        }
+        public override void GetInformation()
+        {
+            Console.WriteLine("\t\tИнформация о Электроном ресурсе -> ");
+            base.GetInformation();
+            Console.WriteLine("Название электроного ресурса -> \nФамилия автора -> \nСсылка -> \nАннотация ->", nameofpublic, surname, link, annotation);
+        }
+    }
+
+    class Progaram
+    {
+        int[] couter = new int[4] { 0, 0, 0 , 0 };
+        static void Main(string[] args)
+        {
+            Console.Write("Введите количество записей -> ");
+            string k;
+            k = Console.ReadLine();
+            int n = int.Parse(k);
+            var izd = new izdanie[n];
+            Console.WriteLine("[1] Книга -> \n[2] Статья -> \n[3] Электронный ресурс");
+            for (int i =0; i < n; i++)
+            {
+                Console.WriteLine(" ");
+                Console.Write("Ввод ->");
+                k = Console.ReadLine();
+                int b = int.Parse(k);
+               
+                    switch (b)
+                    {
+                        case 1:
+                            {
+                                
+                                Console.Write("Введите название издания -> ");
+                                k = Console.ReadLine();
+                                string nameofpublic = k;
+                                Console.Write("Введите фамилию автора -> ");
+                                k = Console.ReadLine();
+                                string surname1 = k;
+                                Console.Write("Введите год выпуска -> ");
+                                k = Console.ReadLine();
+                                int year = int.Parse(k);
+                                Console.Write("Введите название книги -> ");
+                                k = Console.ReadLine();
+                                string name1 = k;
+                                izd[i] = new Book(nameofpublic, surname1, year, name1);
+                                break;
+                                
+
+                            }
+                        case 2:
+                            {
+                                Console.Write("Введите название издания -> ");
+                                k = Console.ReadLine();
+                                string nameofpublic = k;
+                                Console.Write("Введите фамилию автора -> ");
+                                k = Console.ReadLine();
+                                string surname2 = k;
+                                Console.Write("Введите название журнала -> ");
+                                k = Console.ReadLine();
+                                string namemagazine = k;
+                                Console.Write("Введите номер журнала -> ");
+                                k = Console.ReadLine();
+                                int number = int.Parse(k);
+                                Console.Write("Введите год публикации -> ");
+                                k = Console.ReadLine();
+                                int year = int.Parse(k);
+                                izd[i] = new Article(nameofpublic , surname2 ,  year , namemagazine , number);
+                                break;
+                                
+                            }
+                        case 3:
+                            {
+                            Console.Write("Введите название эл.ресурса -> ");
+                            k = Console.ReadLine();
+                            string name = k;
+                            Console.Write("Введите фамилию автора -> ");
+                            k = Console.ReadLine();
+                            string surname3 = k;
+                            Console.Write("Введите ссылку -> ");
+                            k = Console.ReadLine();
+                            string link = k;
+                            Console.Write("Введите аннтоцию -> ");
+                            k = Console.ReadLine();
+                            string annotation = k;
+                            izd[i] = new InterntEdition(name, surname3, link, annotation);
+                            break;
+                            }
+                        default:
+                        {
+                            Console.WriteLine("Введите верное значение");
+                            break;
+                        }
+
+
+
+                    }
+ 
+            }
+            
+        }
+    
+    }
+
+
+}
